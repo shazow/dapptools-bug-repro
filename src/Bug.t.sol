@@ -6,7 +6,14 @@ import "ds-test/test.sol";
 import { Bug } from "./Bug.sol";
 
 contract BugTest is DSTest {
+    Bug b;
+
     function setUp() public {
-        new Bug("baz");
+        b = new Bug();
+        payable(address(b)).transfer(42 ether);
+    }
+
+    function testBalance() public {
+        assertEq(address(b).balance, 42 ether);
     }
 }
